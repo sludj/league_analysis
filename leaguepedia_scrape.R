@@ -57,6 +57,17 @@ spring_2021_bot <- pull_data_leaguepedia("https://lol.fandom.com/wiki/Special:Ru
                                           "spring_2021_bot")
 spring_2021_supp <- pull_data_leaguepedia("https://lol.fandom.com/wiki/Special:RunQuery/TournamentStatistics?pfRunQueryFormName=TournamentStatistics&TS%5Bpreload%5D=TournamentByPlayerRole&TS%5Btournament%5D=LCS%2F2021+Season%2FSpring+Season&TS%5Blink%5D=&TS%5Bchampion%5D=&TS%5Brole%5D=Support&TS%5Bteam%5D=&TS%5Bpatch%5D=&TS%5Byear%5D=&TS%5Bregion%5D=&TS%5Btournamentlevel%5D=&TS%5Bwhere%5D=&TS%5Bincludelink%5D%5Bis_checkbox%5D=true&TS%5Bshownet%5D%5Bis_checkbox%5D=true&wpRunQuery=Run+query&pf_free_text=",
                                            "spring_2021_supp")
+
+spring_2022_top <- pull_data_leaguepedia("https://lol.fandom.com/wiki/Special:RunQuery/TournamentStatistics?pfRunQueryFormName=TournamentStatistics&TS%5Bpreload%5D=TournamentByPlayerRole&TS%5Btournament%5D=LCS%2F2022+Season%2FSpring+Season&TS%5Blink%5D=&TS%5Bchampion%5D=&TS%5Brole%5D=top&TS%5Bteam%5D=&TS%5Bpatch%5D=&TS%5Byear%5D=&TS%5Bregion%5D=&TS%5Btournamentlevel%5D=&TS%5Bwhere%5D=&TS%5Bincludelink%5D%5Bis_checkbox%5D=true&TS%5Bshownet%5D%5Bis_checkbox%5D=true&wpRunQuery=Run+query&pf_free_text=",
+                                         "spring_2022_top")
+spring_2022_jung <- pull_data_leaguepedia("https://lol.fandom.com/wiki/Special:RunQuery/TournamentStatistics?pfRunQueryFormName=TournamentStatistics&TS%5Bpreload%5D=TournamentByPlayerRole&TS%5Btournament%5D=LCS%2F2022+Season%2FSpring+Season&TS%5Blink%5D=&TS%5Bchampion%5D=&TS%5Brole%5D=Jungle&TS%5Bteam%5D=&TS%5Bpatch%5D=&TS%5Byear%5D=&TS%5Bregion%5D=&TS%5Btournamentlevel%5D=&TS%5Bwhere%5D=&TS%5Bincludelink%5D%5Bis_checkbox%5D=true&TS%5Bshownet%5D%5Bis_checkbox%5D=true&wpRunQuery=Run+query&pf_free_text=",
+                                         "spring_2022_jung")
+spring_2022_mid <- pull_data_leaguepedia("https://lol.fandom.com/wiki/Special:RunQuery/TournamentStatistics?pfRunQueryFormName=TournamentStatistics&TS%5Bpreload%5D=TournamentByPlayerRole&TS%5Btournament%5D=LCS%2F2022+Season%2FSpring+Season&TS%5Blink%5D=&TS%5Bchampion%5D=&TS%5Brole%5D=mid&TS%5Bteam%5D=&TS%5Bpatch%5D=&TS%5Byear%5D=&TS%5Bregion%5D=&TS%5Btournamentlevel%5D=&TS%5Bwhere%5D=&TS%5Bincludelink%5D%5Bis_checkbox%5D=true&TS%5Bshownet%5D%5Bis_checkbox%5D=true&wpRunQuery=Run+query&pf_free_text=",
+                                          "spring_2022_mid")
+spring_2022_bot <- pull_data_leaguepedia("https://lol.fandom.com/wiki/Special:RunQuery/TournamentStatistics?pfRunQueryFormName=TournamentStatistics&TS%5Bpreload%5D=TournamentByPlayerRole&TS%5Btournament%5D=LCS%2F2022+Season%2FSpring+Season&TS%5Blink%5D=&TS%5Bchampion%5D=&TS%5Brole%5D=bot&TS%5Bteam%5D=&TS%5Bpatch%5D=&TS%5Byear%5D=&TS%5Bregion%5D=&TS%5Btournamentlevel%5D=&TS%5Bwhere%5D=&TS%5Bincludelink%5D%5Bis_checkbox%5D=true&TS%5Bshownet%5D%5Bis_checkbox%5D=true&wpRunQuery=Run+query&pf_free_text=",
+                                         "spring_2022_bot")
+spring_2022_supp <- pull_data_leaguepedia("https://lol.fandom.com/wiki/Special:RunQuery/TournamentStatistics?pfRunQueryFormName=TournamentStatistics&TS%5Bpreload%5D=TournamentByPlayerRole&TS%5Btournament%5D=LCS%2F2022+Season%2FSpring+Season&TS%5Blink%5D=&TS%5Bchampion%5D=&TS%5Brole%5D=Support&TS%5Bteam%5D=&TS%5Bpatch%5D=&TS%5Byear%5D=&TS%5Bregion%5D=&TS%5Btournamentlevel%5D=&TS%5Bwhere%5D=&TS%5Bincludelink%5D%5Bis_checkbox%5D=true&TS%5Bshownet%5D%5Bis_checkbox%5D=true&wpRunQuery=Run+query&pf_free_text=",
+                                         "spring_2022_supp")
 # get our data together
 data_combined <- mget(ls(pattern = "summer*|lock_in*|spring*")) %>% 
   bind_rows()
@@ -109,6 +120,15 @@ fantasy_avg_no_lock <- fantasy_avg %>% filter(
   arrange(c, a)
 
 ggplot(fantasy_avg_no_lock, aes(x = table_name, y = fantasy_kda_only, label = Player)) +
+  geom_dotplot(binaxis = "y", stackdir = "center") +
+  theme(axis.text.x = element_text(angle = 90)) +
+  geom_text(vjust = -.7, hjust = -.3, check_overlap = TRUE)
+
+
+# Section for only spring 2022 to review
+fantasy_avg_spring_2022 <- fantasy_avg_no_lock %>% filter(str_detect(table_name, "spring_2022_*"))
+
+ggplot(fantasy_avg_spring_2022, aes(x = table_name, y = fantasy_kda_only, label = Player)) +
   geom_dotplot(binaxis = "y", stackdir = "center") +
   theme(axis.text.x = element_text(angle = 90)) +
   geom_text(vjust = -.7, hjust = -.3, check_overlap = TRUE)
